@@ -9,7 +9,7 @@ Series (all from the IMF SDMX API, agency IMF.STA; key order is COUNTRY.[ENTRY.]
   bop_current_account    BOP    IND.NETCD_T.CAB.USD.Q                       quarterly, current account balance, USD
   bop_financial_account  BOP    IND.NNAFANIL_T.FAB.USD.Q                    quarterly, financial account balance, USD
 These keys were found by a read-only probe of the live IMF API (see README). The BOP/IRFCL values are scaled to USD
-billions using the response's UNIT_MULT column; if that column is missing the fetch FAILS rather than guessing.
+billions using the response's scale column (UNIT_MULT or SCALE); if that column is missing the fetch FAILS rather than guessing.
 
 Rules this script follows:
   * A failed fetch NEVER overwrites good data. The old CSV is kept and the series is marked "stale".
@@ -167,6 +167,23 @@ def _to_series(periods: pd.Series, values: pd.Series) -> pd.Series:
     return s
 
 
+_SCALE_NAMES = {"units": 0, "unit": 0, "ones": 0, "thousands": 3, "thousand": 3, "millions": 6, "million": 6,
+                "billions": 9, "billion": 9, "trillions": 12, "trillion": 12}
+
+
+def _scale_power(value) -> float:
+    """Scale cell -> power of ten. Accepts 0/3/6/9, '6', or a name like 'Millions'. Anything else -> NaN."""
+    if pd.isna(value):
+        return 0.0  # an empty scale cell means no scaling
+    text = str(value).strip().lower()
+    if text in _SCALE_NAMES:
+        return float(_SCALE_NAMES[text])
+    try:
+        return float(text)
+    except ValueError:
+        return float("nan")
+
+
 def _parse_imf_csv(text: str, to_bn: bool = False) -> pd.Series:
     df = pd.read_csv(io.StringIO(text))
     cols = {c.upper().split(":")[0].strip(): c for c in df.columns}
@@ -175,12 +192,16 @@ def _parse_imf_csv(text: str, to_bn: bool = False) -> pd.Series:
         return pd.Series(dtype=float)
     values = pd.to_numeric(df[v_col], errors="coerce")
     if to_bn:
-        # Scale to USD billions with the response's own UNIT_MULT (power of ten). Never guess it.
-        m_col = cols.get("UNIT_MULT")
+        # Scale to USD billions with the response's own scale column (power of ten): UNIT_MULT, or SCALE in the
+        # IMF's SDMX 3.0 CSV. Never guess it. The magnitude guard in validate() is a second check on the result.
+        m_col = cols.get("UNIT_MULT") or cols.get("SCALE")
         if m_col is None:
-            raise ValueError("no UNIT_MULT column in the response, cannot scale to USD billions safely; "
+            raise ValueError("no UNIT_MULT or SCALE column in the response, cannot scale to USD billions safely; "
                              f"columns are {list(df.columns)[:12]}, first value {values.dropna().iloc[:1].tolist()}")
-        mult = pd.to_numeric(df[m_col], errors="coerce").fillna(0)
+        mult = df[m_col].map(_scale_power)
+        if mult.isna().any():
+            bad = df.loc[mult.isna(), m_col].astype(str).unique()[:5].tolist()
+            raise ValueError(f"cannot read the scale column {m_col!r}: values {bad}")
         values = values * (10.0 ** mult) / 1e9
     return _to_series(df[t_col], values)
 
