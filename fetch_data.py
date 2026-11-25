@@ -201,36 +201,38 @@ def _parse_imf_json(payload: dict) -> pd.Series:
 
 
 def fetch_imf(flow: str, key: str, to_bn: bool = False) -> pd.Series:
-    last_msg = "no response"
+    msgs: list[str] = []  # keep EVERY failure reason, so the log shows the CSV attempt too
     for version in IMF_VERSIONS:
         url = f"{IMF_BASE}/data/dataflow/{IMF_AGENCY}/{flow}/{version}/{key}"
-        for headers in (IMF_HEADERS_CSV, IMF_HEADERS_JSON):
+        for fmt, headers in (("csv", IMF_HEADERS_CSV), ("json", IMF_HEADERS_JSON)):
+            tag = f"{version}/{fmt}"
             r, msg = _http_get(url, params={"startPeriod": IMF_START}, headers=headers)
             if r is None:
-                last_msg = msg
+                msgs.append(f"[{tag}] {msg}")
                 continue
             if r.status_code == 404:
-                last_msg = "no data (404)"
+                msgs.append(f"[{tag}] no data (404)")
                 break  # this version has no such series; try the next version
             if r.status_code != 200:
-                last_msg = f"HTTP {r.status_code}"
+                msgs.append(f"[{tag}] HTTP {r.status_code}")
                 continue
             try:
                 ctype = r.headers.get("Content-Type", "").lower()
                 if "json" in ctype:
                     if to_bn:
-                        last_msg = "got JSON, but scaling needs the CSV format"
+                        msgs.append(f"[{tag}] got JSON, but scaling needs the CSV format")
                         continue
                     s = _parse_imf_json(r.json())
                 else:
                     s = _parse_imf_csv(r.text, to_bn)
             except Exception as exc:  # noqa: BLE001
-                last_msg = f"could not parse response ({exc})"
+                msgs.append(f"[{tag}] could not parse response ({exc}); content-type {ctype!r}; "
+                            f"starts with {r.text[:160]!r}")
                 continue
             if len(s):
                 return s
-            last_msg = "empty series"
-    raise RuntimeError(f"IMF {flow}/{key}: {last_msg}")
+            msgs.append(f"[{tag}] empty series; content-type {ctype!r}; starts with {r.text[:160]!r}")
+    raise RuntimeError(f"IMF {flow}/{key}: " + " | ".join(msgs))
 
 
 # --------------------------------------------------------------------------- #
