@@ -1,6 +1,6 @@
 {
-  "run_started_utc": "2026-11-25T23:43:30Z",
-  "last_run_utc": "2026-11-25T23:43:41Z",
+  "run_started_utc": "2026-11-25T23:46:31Z",
+  "last_run_utc": "2026-11-25T23:46:32Z",
   "all_series_ok": false,
   "last_full_success_utc": null,
   "series": {
@@ -12,8 +12,8 @@
       "units": "INR per 1 USD",
       "frequency": "Monthly (period average)",
       "file": "data/imf_inr_per_usd.csv",
-      "last_attempt_utc": "2026-11-25T23:43:30Z",
-      "last_success_utc": "2026-11-25T23:43:30Z",
+      "last_attempt_utc": "2026-11-25T23:46:31Z",
+      "last_success_utc": "2026-11-25T23:46:31Z",
       "first_observation_date": "1957-01-01",
       "latest_observation_date": "2026-10-01",
       "rows": 838,
@@ -31,13 +31,13 @@
       "units": "USD billions",
       "frequency": "Quarterly",
       "file": "data/bop_goods_exports.csv",
-      "last_attempt_utc": "2026-11-25T23:43:31Z",
+      "last_attempt_utc": "2026-11-25T23:46:31Z",
       "last_success_utc": null,
       "first_observation_date": null,
       "latest_observation_date": null,
       "rows": null,
       "status": "failed",
-      "error": "RuntimeError: IMF BOP/IND.CD_T.G.USD.Q: [+/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [1125676585.109892]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [+/json] got JSON, but scaling needs the CSV format | [~/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [1125676585.109892]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [~/json] got JSON, but scaling needs the CSV format"
+      "error": "ValueError: scale check failed: latest value 1.32e+08 (USD bn) is outside the plausible range 30 to 300; check the units before trusting this series"
     },
     "bop_services_exports": {
       "id": "bop_services_exports",
@@ -47,13 +47,13 @@
       "units": "USD billions",
       "frequency": "Quarterly",
       "file": "data/bop_services_exports.csv",
-      "last_attempt_utc": "2026-11-25T23:43:33Z",
+      "last_attempt_utc": "2026-11-25T23:46:31Z",
       "last_success_utc": null,
       "first_observation_date": null,
       "latest_observation_date": null,
       "rows": null,
       "status": "failed",
-      "error": "RuntimeError: IMF BOP/IND.CD_T.S.USD.Q: [+/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [204959060.1920896]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [+/json] got JSON, but scaling needs the CSV format | [~/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [204959060.1920896]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [~/json] got JSON, but scaling needs the CSV format"
+      "error": "ValueError: scale check failed: latest value 1.062e+08 (USD bn) is outside the plausible range 30 to 300; check the units before trusting this series"
     },
     "bop_computer_services": {
       "id": "bop_computer_services",
@@ -63,13 +63,13 @@
       "units": "USD billions",
       "frequency": "Quarterly",
       "file": "data/bop_computer_services.csv",
-      "last_attempt_utc": "2026-11-25T23:43:35Z",
+      "last_attempt_utc": "2026-11-25T23:46:31Z",
       "last_success_utc": null,
       "first_observation_date": null,
       "latest_observation_date": null,
       "rows": null,
       "status": "failed",
-      "error": "RuntimeError: IMF BOP/IND.CD_T.SI2.USD.Q: [+/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [0.0]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [+/json] got JSON, but scaling needs the CSV format | [~/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [0.0]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [~/json] got JSON, but scaling needs the CSV format"
+      "error": "ValueError: scale check failed: latest value 5.138e+07 (USD bn) is outside the plausible range 5 to 150; check the units before trusting this series"
     },
     "bop_current_account": {
       "id": "bop_current_account",
@@ -79,13 +79,13 @@
       "units": "USD billions",
       "frequency": "Quarterly",
       "file": "data/bop_current_account.csv",
-      "last_attempt_utc": "2026-11-25T23:43:37Z",
+      "last_attempt_utc": "2026-11-25T23:46:32Z",
       "last_success_utc": null,
       "first_observation_date": null,
       "latest_observation_date": null,
       "rows": null,
       "status": "failed",
-      "error": "RuntimeError: IMF BOP/IND.NETCD_T.CAB.USD.Q: [+/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [-188720881.3746253]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [+/json] got JSON, but scaling needs the CSV format | [~/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [-188720881.3746253]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [~/json] got JSON, but scaling needs the CSV format"
+      "error": "ValueError: scale check failed: latest value -4.219e+06 (USD bn) is outside the plausible range 0 to 100; check the units before trusting this series"
     },
     "bop_financial_account": {
       "id": "bop_financial_account",
@@ -95,13 +95,13 @@
       "units": "USD billions",
       "frequency": "Quarterly",
       "file": "data/bop_financial_account.csv",
-      "last_attempt_utc": "2026-11-25T23:43:39Z",
+      "last_attempt_utc": "2026-11-25T23:46:32Z",
       "last_success_utc": null,
       "first_observation_date": null,
       "latest_observation_date": null,
       "rows": null,
       "status": "failed",
-      "error": "RuntimeError: IMF BOP/IND.NNAFANIL_T.FAB.USD.Q: [+/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [-332179437.5415152]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [+/json] got JSON, but scaling needs the CSV format | [~/csv] could not parse response (no UNIT_MULT column in the response, cannot scale to USD billions safely; columns are ['STRUCTURE[;]', 'STRUCTURE_ID', 'ACTION', 'COUNTRY', 'BOP_ACCOUNTING_ENTRY', 'INDICATOR', 'UNIT', 'FREQUENCY', 'TIME_PERIOD', 'OBS_VALUE', 'SCALE', 'PRECISION'], first value [-332179437.5415152]); content-type 'application/vnd.sdmx.data+csv;version=2.0.0'; starts with 'STRUCTURE[;],STRUCTURE_ID,ACTION,COUNTRY,BOP_ACCOUNTING_ENTRY,INDICATOR,UNIT,FREQUENCY,TIME_PERIOD,OBS_VALUE,SCALE,PRECISION,DECIMALS_DISPLAYED,INSTR_ASSET,FUNC' | [~/json] got JSON, but scaling needs the CSV format"
+      "error": "ValueError: scale check failed: latest value -2.343e+06 (USD bn) is outside the plausible range 0 to 150; check the units before trusting this series"
     }
   }
 }
