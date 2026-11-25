@@ -48,7 +48,7 @@ def test_parse_imf_csv_scales_with_unit_mult():
 
 
 def test_scaling_without_unit_mult_fails_instead_of_guessing():
-    with pytest.raises(ValueError, match="UNIT_MULT"):
+    with pytest.raises(ValueError, match="UNIT_MULT or SCALE"):
         fd._parse_imf_csv("TIME_PERIOD,OBS_VALUE\n2026-Q1,105000\n", to_bn=True)
 
 
@@ -155,3 +155,14 @@ def test_first_run_failure_is_marked_failed_not_faked(tmp_data, monkeypatch):
     assert all(e["status"] == "failed" for e in log["series"].values())
     assert not list(tmp_data.glob("*.csv"))
     assert log["last_full_success_utc"] is None
+
+
+def test_scale_column_named_scale_and_text_values():
+    text = "TIME_PERIOD,OBS_VALUE,SCALE\n2026-Q1,105000,Millions\n2026-Q2,110000,6\n"
+    s = fd._parse_imf_csv(text, to_bn=True)
+    assert list(s.round(6)) == [105.0, 110.0]
+
+
+def test_unreadable_scale_value_fails_loudly():
+    with pytest.raises(ValueError, match="cannot read the scale column"):
+        fd._parse_imf_csv("TIME_PERIOD,OBS_VALUE,SCALE\n2026-Q1,5,wat\n", to_bn=True)
